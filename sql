@@ -1,30 +1,30 @@
 CREATE TABLE users
 (
-  user_name VARCHAR NOT NULL,
-  user_surname VARCHAR NOT NULL,
-  user_password VARCHAR NOT NULL,
-  user_email VARCHAR NOT NULL,
-  user_id INT  IDENTITY(1,1) NOT NULL,
-  logged_in CHAR NOT NULL,
-  first_login CHAR NOT NULL,
-  last_login_date DATE NOT NULL,
+  user_name VARCHAR(255) NOT NULL,
+  user_surname VARCHAR(255) NOT NULL,
+  user_password VARCHAR(255) NOT NULL,
+  user_email VARCHAR(255) NOT NULL,
+  user_id INT AUTO_INCREMENT NOT NULL,
+  logged_in TINYINT NOT NULL,
+  first_login TINYINT NOT NULL,
+  last_login_date TIMESTAMP NOT NULL,
   PRIMARY KEY (user_id),
-  UNIQUE (email)
+  UNIQUE (user_email)
 );
 
 CREATE TABLE products
 (
-  image_link VARCHAR NOT NULL,
-  product_id INT IDENTITY(1,1) NOT NULL,
-  name VARCHAR NOT NULL,
+  image_link VARCHAR(255) NOT NULL,
+  product_id INT AUTO_INCREMENT NOT NULL,
+  name VARCHAR(255) NOT NULL,
   price INT NOT NULL,
   PRIMARY KEY (product_id)
 );
 
 CREATE TABLE orders
 (
-  user_id VARCHAR NOT NULL,
-  order_id INT IDENTITY(1,1) NOT NULL,
+  user_id INT NOT NULL,
+  order_id INT AUTO_INCREMENT NOT NULL,
   total_price INT NOT NULL,
   date DATE NOT NULL,
   PRIMARY KEY (order_id)
