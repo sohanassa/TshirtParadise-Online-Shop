@@ -5,6 +5,7 @@ session_start();
 $name = "";
 $surname = "";
 $email    = "";
+$password = "";
 $errors = array();
 
 // connect to the database
@@ -12,7 +13,7 @@ $db = mysqli_connect('localhost', 'root', '', 'webshopdatabase');
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
-    
+
     $name = mysqli_real_escape_string($db, $_POST['name']);
     $surname = mysqli_real_escape_string($db, $_POST['surname']);
     $email = mysqli_real_escape_string($db, $_POST['email']);
@@ -49,9 +50,22 @@ if (isset($_POST['login_user'])) {
         if (mysqli_num_rows($results) == 1) {
             $_SESSION['email'] = $email;
             $_SESSION['success'] = "You are now logged in";
-            header('location: index.php');
-        } else {
-            array_push($errors, "Wrong username/password combination");
+            $query = "SELECT first_login FROM users WHERE user_email='$email'";
+            $login = mysqli_query($db, $query);
+            if ($login == 1) {
+                $query = "UPDATE users SET first_login = 0 WHERE user_email='$email' ";
+                mysqli_query($db, $query);
+                header('location: setPassword.php');
+            } else
+                header('location: index.php');
         }
     }
+}
+
+if (isset($_POST['change_password'])) {
+    $password = mysqli_real_escape_string($db, $_POST['pass2']);
+    $email = $_SESSION['email'];
+    $query = "UPDATE users SET user_password = '$password' WHERE user_email = '$email'";
+    mysqli_query($db, $query);
+    header('location: index.php');
 }

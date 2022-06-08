@@ -44,10 +44,10 @@
               <a class="nav-link" href="previous_orders.php">Previous Orders</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="register.php">Register</a>
-              </li>
+              <a class="nav-link" href="register.php">Register</a>
+            </li>
 
-            </ul>
+          </ul>
         </div>
       </div>
     </nav>
@@ -56,22 +56,54 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
+<script>
+  function checkData() {
+    var email = document.getElementById("emailadress").value;
+    var password = document.getElementById("pass").value;
+    if (email.length < 5) {
+      alert("Email must be at least 5 characters long!");
+      return false;
+    }
+    if (email.search(/@/) < 0) {
+      alert("Email must have @ symbol!");
+      return false;
+    }
+    if (password.length < 9) {
+      alert("Password must be at least 9 characters long!");
+      return false;
+    }
+    if (password.search(/[a-z]/) < 0) {
+      alert("Password must must have at least 1 small character!");
+      return false;
+    }
+    if (password.search(/[A-Z]/) < 0) {
+      alert("Password must must have at least 1 capital character!");
+      return false;
+    }
+    if (password.search(/[0-9]/) < 0) {
+      alert("Password must must have at least 1 number!");
+      return false;
+    }
+    return true;
+  }
+</script>
+
 <div>
-        <br>
-        <h2>Login to Tshirt Paradise</h2>
-        <br>
-        <form method="post" action="login.php">
-            <?php include('errors.php'); ?>
-            <div style="text-align: center; " class="input-group">
-                <input style="text-align: center;" type="email" placeholder="Enter email address" name="email" minlength="5" required value="<?php echo $email; ?>">
-            </div>
-            <div style="text-align: center; " class="input-group">
-                <input style="text-align: center;" type="text" name="password" placeholder="Enter password" required value="<?php echo $name; ?>">
-            </div>
-            <button type="submit" class="btn btn-outline-success" name="login_user">Login</button>
-        </form>
+  <br>
+  <h2>Login to Tshirt Paradise</h2>
+  <br>
+  <form method="post" action="login.php" onsubmit="return checkData()">
+    <?php include('errors.php'); ?>
+    <div style="text-align: center; " class="input-group">
+      <input id="emailadress" style="text-align: center;" type="text" placeholder="Enter email address" name="email" required>
     </div>
-    <br>
-   <h4>First time here?</h4> <a href="register.php">register<a>
+    <div style="text-align: center; " class="input-group">
+      <input id="pass" style="text-align: center;" type="password" name="password" placeholder="Enter password" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success" name="login_user">Login</button>
+  </form>
+</div>
+<br>
+<h4>First time here?</h4> <a href="register.php">register<a>
 
 </html>
