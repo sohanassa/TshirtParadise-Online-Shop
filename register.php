@@ -82,14 +82,25 @@
       <div class="input-group">
         <input type="email" id="email" placeholder="Enter email address" name="email" required>
       </div>
+      <div>
+        <input type="hidden" name="width" id="width" value="">
+      </div>
+      <div>
+        <input type="hidden" name="height" id="height" value="">
+      </div>
       <button type="submit" class="btn btn-outline-success" name="reg_user">Register</button>
     </form>
   </div>
 
-
-
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
+
+<script>
+  let wid = screen.width;
+  var hei = screen.height;
+
+  document.getElementById("width").value = wid;
+  document.getElementById("height").value = hei;
+</script>
 
 </html>

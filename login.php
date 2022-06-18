@@ -100,10 +100,28 @@
     <div style="text-align: center; " class="input-group">
       <input id="pass" style="text-align: center;" type="password" name="password" placeholder="Enter password" required>
     </div>
+    <div>
+      <input type="hidden" name="width" id="width" value="">
+    </div>
+    <div>
+      <input type="hidden" name="height" id="height" value="">
+    </div>
+    <div>
+      <input type="hidden" name="OS" id="OS" value="">
+    </div>
     <button type="submit" class="btn btn-outline-success" name="login_user">Login</button>
   </form>
 </div>
 <br>
 <h4>First time here?</h4> <a href="register.php">register<a>
+
+    <script>
+      let wid = screen.width;
+      var hei = screen.height;
+      var OS = navigator.platform;
+      document.getElementById("width").value = wid;
+      document.getElementById("height").value = hei;
+      document.getElementById("OS").value = OS;
+    </script>
 
 </html>
