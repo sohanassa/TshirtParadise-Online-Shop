@@ -1,5 +1,5 @@
-<?php 
-session_start(); 
+<?php
+session_start();
 ?>
 <!doctype html>
 <html lang="en">
@@ -16,7 +16,6 @@ session_start();
 
 <body style="background-color: #d4a5c1;">
 
-  <!-- Completed -->
   <section id="Nav-Bar" style="background-color: #c980ac;">
     <nav class="navbar navbar-expand-lg navbar-light ">
       <div class="container-fluid">
@@ -36,25 +35,33 @@ session_start();
             <li class="nav-item">
               <a class="nav-link" href="products.php">Products</a>
             </li>
-            <li class="nav-item">
+            <li id="log" class="nav-item">
               <a class="nav-link" href="login.php">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="shopping_cart.php">Shopping Cart</a>
+              <a class="nav-link" href="register.php">Register</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="previous_orders.php">Previous Orders</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="register.php">Register</a>
-              </li>
-
-            </ul>
+          </ul>
         </div>
       </div>
     </nav>
   </section>
-  <!-- Completed -->
+
+
+  <script>
+    var loggedin = "<?php echo "$loggedin" ?>";
+    var ref = document.getElementById('log');
+    var htmlCode = '<li class="nav-item">';
+    htmlCode += '<a class="nav-link" href="shopping_cart.php">Shopping Cart</a>';
+    htmlCode += '</li>';
+    htmlCode += '<li class="nav-item">';
+    htmlCode += '<a class="nav-link" href="previous_orders.php">Previous Orders</a>';
+    htmlCode += '</li>';
+    htmlCode += '';
+    ref.insertAdjacentHTML('afterend', htmlCode);
+  </script>
+
+
   <br>
   <h3>Our Best selling products:</h3>
   <br>
@@ -65,7 +72,7 @@ session_start();
           <img src="https://www.campdavid-soccx.de/out/pictures/generated/product/1/273_408_75/t-shirt-inside-oil-dyed-mit-used-optik-641419-6008ec90717c6.jpg" class="d-block w-100" alt="image">
         </div>
         <div class="carousel-item" data-bs-interval="3000">
-          <img src="https://www.campdavid-soccx.de/out/pictures/generated/product/1/273_408_75/t-shirt-mit-v-neck-im-vintage-style-794705-6272488e6aee5.jpg"  class="d-block w-100" alt="image">
+          <img src="https://www.campdavid-soccx.de/out/pictures/generated/product/1/273_408_75/t-shirt-mit-v-neck-im-vintage-style-794705-6272488e6aee5.jpg" class="d-block w-100" alt="image">
         </div>
         <div class="carousel-item" data-bs-interval="3000">
           <img src="https://www.campdavid-soccx.de/out/pictures/generated/product/1/273_408_75/t-shirt-aus-flammgarn-mit-used-print-574651-6008db7e10482.jpg" class="d-block w-100" alt="image">

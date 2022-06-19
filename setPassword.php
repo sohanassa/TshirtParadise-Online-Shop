@@ -57,23 +57,23 @@
         function checkData() {
             var password1 = document.getElementById("pass1").value;
             var password2 = document.getElementById("pass2").value;
-            if (pass1 != pass2) {
+            if (password1 != password2) {
                 alert("Password must the same!");
                 return false;
             }
-            if (password.length < 9) {
+            if (password1.length < 9) {
                 alert("Password must be at least 9 characters long!");
                 return false;
             }
-            if (password.search(/[a-z]/) < 0) {
+            if (password1.search(/[a-z]/) < 0) {
                 alert("Password must must have at least 1 small character!");
                 return false;
             }
-            if (password.search(/[A-Z]/) < 0) {
+            if (password1.search(/[A-Z]/) < 0) {
                 alert("Password must must have at least 1 capital character!");
                 return false;
             }
-            if (password.search(/[0-9]/) < 0) {
+            if (password1.search(/[0-9]/) < 0) {
                 alert("Password must must have at least 1 number!");
                 return false;
             }
