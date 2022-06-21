@@ -8,6 +8,8 @@ CREATE TABLE users
   logged_in TINYINT NOT NULL,
   first_login TINYINT NOT NULL,
   last_login_date TIMESTAMP NOT NULL,
+  screen_resolution VARCHAR(255) NOT NULL,
+  OS VARCHAR(255) NOT NULL,
   PRIMARY KEY (user_id),
   UNIQUE (user_email)
 );
