@@ -69,7 +69,7 @@
           $stmt->execute();
           $result = $stmt->get_result();
           while ($row = $result->fetch_assoc()) :
-      ?>
+          ?>
         <tr>
         <td>
             <div class="cart-info">
@@ -83,8 +83,50 @@
             </div>
           </td>
         </tr>
-      <?php endwhile; ?>
     </table>
+    <?php endwhile; ?>
+    <div class="total-price">
+      <table>
+      <script>
+        let preDiscountPrice = 0;
+        let Discount = 0;
+        let totalPrice = 0;
+        <?php
+            $stmt = $db->prepare('SELECT * FROM carts');
+            $stmt->execute();
+            $result = $stmt->get_result();
+            while ($row = $result->fetch_assoc()) :
+            ?>
+            preDiscountPrice += number_format($row['price'], 2)
+            Discount += number_format($row['price'], 2)*(number_format($_row['quantity'], 2)/100)
+            totalPrice += preDiscountPrice - Discount
+        <?php endwhile; ?>
+        document.getElementById("preDiscountPrice").innerHTML = preDiscountPrice;
+        document.getElementById("Discount").innerHTML = Discount;
+        document.getElementById("totalPrice").innerHTML = totalPrice;
+      </script>  
+      
+        <tr>
+          <td>Subtotal</td>
+          <td><p id="preDiscountPrice"></p></td>
+        </tr>
+        <tr>
+          <td>Discount</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td><p id="totalPrice"></p></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td> 
+            <button type="button">Order</button> 
+          </td>
+        </tr>
+      </table> 
+    </div> 
+
   </div>
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
