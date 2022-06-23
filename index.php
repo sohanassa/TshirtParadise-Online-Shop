@@ -46,7 +46,7 @@ session_start();
               <a class="nav-link" href="previous_orders.php">Previous Orders</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="shopping_cart.php"><i class="fas fa-cart-arrow-down"><?php 
+              <a class="nav-link" href="shopping_cart.php"><i class="fa fa-shopping-cart"><?php 
               $db = mysqli_connect('localhost', 'root', '', 'webshopdatabase');
               $id = $_SESSION['userID'];
               $query = "SELECT COUNT(*) AS total FROM carts WHERE user_id= '$id'";
