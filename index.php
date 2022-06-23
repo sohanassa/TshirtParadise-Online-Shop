@@ -46,13 +46,14 @@ session_start();
               <a class="nav-link" href="previous_orders.php">Previous Orders</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="shopping_cart.php"><i class="fa fa-shopping-cart"><?php 
+            <i class="bi bi-bag"></i>
+              <a class="nav-link" href="shopping_cart.php"><i class="fa fa-shopping-cart"></i><?php 
               $db = mysqli_connect('localhost', 'root', '', 'webshopdatabase');
               $id = $_SESSION['userID'];
               $query = "SELECT COUNT(*) AS total FROM carts WHERE user_id= '$id'";
               $results = mysqli_query($db, $query);
               $user = $results->fetch_assoc();
-              echo $user["total"] ?></i></a>
+              echo $user["total"] ?></a>
             </li>
               <?php endif; ?>
           </ul>
