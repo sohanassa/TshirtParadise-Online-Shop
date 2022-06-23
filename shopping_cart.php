@@ -14,6 +14,13 @@
 </head>
 
 <body style="background-color: #d4a5c1;">
+<?php
+$id = $_SESSION['userID'];
+$stmt = $db->prepare("SELECT * FROM carts c, products p WHERE user_id = '$id' AND c.product_id = p.product_id");
+$stmt->execute();
+$result = $stmt->get_result();
+$prodCount = $result->num_rows;
+?>
 
   <!-- Completed -->
   <section id="Nav-Bar" style="background-color: #c980ac;">
@@ -54,11 +61,11 @@
     </nav>
   </section>
   <!-- Completed -->
-
+<?php if ($prodCount == 0):?>
   <div class="empty" id="empty_message">
     <h1>You have nothing in you cart right now!</h1>
   </div>
-
+<?php else: ?>
   <div class="small-container cart-page" id="cart_table">
     <table>
       <thead>
@@ -72,10 +79,6 @@
         </tr>
       </thead>
       <?php
-      $id = $_SESSION['userID'];
-      $stmt = $db->prepare("SELECT * FROM carts c, products p WHERE user_id = '$id' AND c.product_id = p.product_id");
-      $stmt->execute();
-      $result = $stmt->get_result();
       while ($row = $result->fetch_assoc()) :
       ?>
         <tr>
@@ -134,6 +137,7 @@
       </table>
     </div>
   </div>
+<?php endif; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
