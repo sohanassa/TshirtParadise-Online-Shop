@@ -54,8 +54,12 @@
     </nav>
   </section>
   <!-- Completed -->
+ 
+  <div class="empty" id="empty_message">
+    <h1>You have nothing in you cart right now!</h1>
+  </div>
 
-  <div class="small-container cart-page">
+  <div class="small-container cart-page" id="cart_table">
     <table>
       <thead>
         <tr>
@@ -97,36 +101,53 @@
       <?php endwhile; ?>
     </table>
   
-  <div class="total-price">
-    <table>
-      <tr>
-        <td>Subtotal</td>
-        <td>
-        <small><?php echo $_SESSION['discountless_total_price']; ?>€</small>                                            
-        </td>
-      </tr>
-      <tr>
-        <td>Discount</td>
-        <td>
-          <small><?php echo $_SESSION['total_discount']; ?>€</small>
-        </td>
-      </tr>
-      <tr>
-        <td>Total</td>
-        <td>
-        <small><?php echo $_SESSION['cart_price']; ?>€</small>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <button type="button">Order</button>
-        </td>
-      </tr>
-    </table>
+    <div class="total-price">
+      <table>
+        <tr>
+          <td>Subtotal</td>
+          <td>
+          <small><?php echo $_SESSION['discountless_total_price']; ?>€</small>                                            
+          </td>
+        </tr>
+        <tr>
+          <td>Discount</td>
+          <td>
+            <small><?php echo $_SESSION['total_discount']; ?>€</small>
+          </td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td>
+          <small><?php echo $_SESSION['cart_price']; ?>€</small>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button type="button">Order</button>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 
-  </div>
+  <script>
+    <?php
+      $stmt = $db->prepare("SELECT COUNT(*) FROM carts");
+      $stmt->execute();
+      $result = $stmt->get_result();
+    ?>
+    if (!$result) {
+      var cart_table = document.getElementById("cart_table");
+      cart_table.setAttribute('hidden');
+    }
+    else {
+      var empty_message = document.getElementById("empty_message");
+      empty_message.setAttribute('hidden');
+    }
+
+    
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
