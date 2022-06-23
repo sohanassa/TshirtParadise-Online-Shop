@@ -38,12 +38,14 @@ session_start();
             <li class="nav-item">
               <a class="nav-link" href="login.php">Login</a>
             </li>
+              <?php if (isset($_SESSION["userID"])):?>
             <li class="nav-item">
               <a class="nav-link" href="shopping_cart.php">Shopping Cart</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="previous_orders.php">Previous Orders</a>
             </li>
+              <?php endif; ?>
           </ul>
         </div>
       </div>

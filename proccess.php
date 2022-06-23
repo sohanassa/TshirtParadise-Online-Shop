@@ -55,8 +55,10 @@ if (isset($_POST['login_user'])) {
     if (count($errors) == 0) {
         $query = "SELECT * FROM users WHERE user_email='$email' AND user_password='$password'";
         $results = mysqli_query($db, $query);
+        $user = $results->fetch_assoc();
         if (mysqli_num_rows($results) == 1) {
             $_SESSION['email'] = $email;
+            $_SESSION['userID']=
             $resolution = $width . 'X' . $height;
             $query = "UPDATE users SET screen_resolution = '$resolution' WHERE user_email='$email' ";
             mysqli_query($db, $query);
@@ -69,6 +71,8 @@ if (isset($_POST['login_user'])) {
             $query = "SELECT first_login FROM users WHERE user_email='$email'";
             $login = mysqli_query($db, $query);
             $temp1  = $login->fetch_assoc();
+            $userID = (int) $user['user_id'];
+            $_SESSION["userID"]=$userID;
             $temp2 = (int) $temp1['first_login'];
             if ($temp2 == 1) {
                 header('location: setPassword.php');
