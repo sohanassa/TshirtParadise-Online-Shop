@@ -58,9 +58,12 @@
                     $user = $results->fetch_assoc();
                     echo $user["total"] ?></i></a>
 
+                  </li>
+              <?php else: ?>
+              <li class="nav-item">
+                  <a class="nav-link" href="register.php">Register</a>
               </li>
-
-            <?php endif; ?>
+              <?php endif; ?>
           </ul>
         </div>
       </div>
