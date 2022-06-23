@@ -200,8 +200,8 @@ if (isset($_POST['add_to_cart'])) {
     }
 }
 
-if (isset($_POST['add_to_cart'])) {
-    
+if (isset($_POST['shopping_order'])) {
+    header('location: order_checkout.php');
 }
 
 

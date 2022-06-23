@@ -80,13 +80,10 @@
       ?>
         <tr>
           <td>
-            <img src="<?= $row['image_link'] ?>", class="prodImage">
+            <img src="<?= $row['image_link'] ?>" , class="prodImage">
           <td>
-            <script>
-              var qty = <?= $row['quantity'] ?>;
-              document.getElementById("quantity").value = qty;
-            </script>
-            <input type="number" name="quantity" id="quantity" min="1" step="1">
+            <input type="number" name="quantity" id="quantity" min="1" step="1" value="<?= $row['quantity'] ?>">
+
           </td>
           <td>
             <p><?= $row['NAME'] ?></p>
