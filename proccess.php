@@ -216,3 +216,48 @@ if (isset($_POST['remove'])) {
     $result = mysqli_query($db, $query);
     header('location: shopping_cart.php');
 }
+
+if (isset($_POST['BuyAgain'])) {
+
+    //get user and shipping cost
+    $email = $_SESSION['email'];
+
+    $user_check_query = "SELECT * FROM users WHERE user_email='$email' LIMIT 1";
+    $result = mysqli_query($db, $user_check_query);
+    $user = $result->fetch_assoc();
+    $id = (int) $user['user_id'];
+    $pid = mysqli_real_escape_string($db, $_POST['BuyAgain']);
+    $total_price = 0;
+
+    //calculate price from cart
+    $query = "SELECT * FROM orders o WHERE order_id = '$pid'";
+    $result = mysqli_query($db, $query);
+    while ($row = mysqli_fetch_array($result)) {
+        $total_price = $row['total_price'];
+    }
+
+    //create order
+    $create_order_query = "INSERT INTO orders (user_id, total_price, DATE) VALUES ('$id', '$total_price', CURRENT_TIMESTAMP)";
+    $result = mysqli_query($db, $create_order_query);
+    $order_id = mysqli_insert_id($db);
+
+    //add order to users orders
+    $query = "INSERT INTO users_orders (user_id, order_id) VALUES ('$id', '$order_id')";
+    mysqli_query($db, $query);
+
+    //move all products from carts to orders_products
+    $query = "SELECT * FROM orders_products WHERE user_id = '$id' AND order_id = '$pid'";
+    $retval = mysqli_query($db, $query);
+
+    while ($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
+        $prodID = $row['product_id'];
+        $quan = $row['quantity'];
+        $query = "INSERT INTO orders_products (order_id, product_id, quantity) VALUES ('$order_id', '$prodID', '$quan')";
+        mysqli_query($db, $query);
+    }
+
+    //send mail to user
+    $msg = "Thank you for buying from us. Your Order nuber is: 435" . $order_id;
+    mail($email, 'Order Confirmation', $msg, 'From: tshirtparadise999@gmail.com');
+    header('location: thankyou.php');
+}
