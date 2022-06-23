@@ -81,7 +81,7 @@
             <div class="form-group">
               <select name="pmode" class="form-control">
                 <option value="" selected disabled></option>
-                <option value="22">Deliver by DPD +€22</option>
+                <option value="24">Deliver by DPD +€24</option>
                 <option value="0">Deliver by DHL (Free)</option>
                 <option value="33">Deliver by DHL Express +€33</option>
               </select>
