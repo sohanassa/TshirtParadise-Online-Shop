@@ -74,6 +74,10 @@ if (isset($_POST['login_user'])) {
             $userID = (int) $user['user_id'];
             $_SESSION["userID"]=$userID;
             $temp2 = (int) $temp1['first_login'];
+            $user_check_query = "SELECT * FROM users WHERE user_email='$email' LIMIT 1";
+            $result = mysqli_query($db, $user_check_query);
+            $user = $result->fetch_assoc();
+            $_SESSION['id'] = (int) $user['user_id'];
             if ($temp2 == 1) {
                 header('location: setPassword.php');
             } else {
@@ -167,9 +171,9 @@ if (isset($_POST['add_to_cart'])) {
     if (!$userproduct) {
         $finalPrice = (int) $price * $quantity;
         if ($quantity <= 50) {
-            $intPrice = (float) $price * $quantity;
+            $floatPrice = (float) $price * $quantity;
             $discount = (float) $quantity / 100;
-            $finalPrice = (int) ($intPrice - ($discount * $intPrice));
+            $finalPrice = (int) ($floatPrice - ($discount * $floatPrice));
         }
 
         $query = "INSERT INTO carts (user_id, product_id, price, quantity) VALUES ('$id', '$pid', '$finalPrice', '$quantity')";
@@ -181,15 +185,27 @@ if (isset($_POST['add_to_cart'])) {
         $id = (int) $user['user_id'];
         $total_price = 0;
         $total_item_count = 0;
-
+        $total_discount = 0;
+        $discountless_total_price = 0;
         //calculate price from cart
-        $query = "SELECT * FROM carts WHERE user_id = '$id'";
+        $query = "SELECT * FROM carts c, products p WHERE user_id = '$id' and c.product_id = p.product_id";
         $result = mysqli_query($db, $query);
+
         while ($row = mysqli_fetch_array($result)) {
             $total_price += $row['price'];
             $total_item_count += $row['quantity'];
+            $discountless_total_price += $row['product_price'] * $row['quantity'];
+            $total_discount += (float)((float) $row['product_price']* $row['quantity'] * ((float)$row['quantity'] / 100));
         }
         $_SESSION['cart_price'] = $total_price;
         $_SESSION['cart_items'] = $total_item_count;
+        $_SESSION['total_discount'] =  $total_discount;
+        $_SESSION['discountless_total_price'] =  $discountless_total_price;
     }
 }
+
+if (isset($_POST['shopping_order'])) {
+    header('location: order_checkout.php');
+}
+
+

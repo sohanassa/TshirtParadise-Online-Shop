@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Online Shop.">
-  <link rel="stylesheet" href="CartTheme.css">
+  <link rel="stylesheet" href="style.css">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -45,90 +45,107 @@
               <a class="nav-link" href="previous_orders.php">Previous Orders</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="register.php">Register</a>
-              </li>
+              <a class="nav-link" href="register.php">Register</a>
+            </li>
 
-            </ul>
+          </ul>
         </div>
       </div>
     </nav>
   </section>
   <!-- Completed -->
+ 
+  <div class="empty" id="empty_message">
+    <h1>You have nothing in you cart right now!</h1>
+  </div>
 
-  <div class="small-container cart-page">
+  <div class="small-container cart-page" id="cart_table">
     <table>
-    <thead>
+      <thead>
         <tr>
-          <th class="cart-type">Product</th>
+          <th class="cart-type"></th>
           <th class="cart-type">Quantity</th>
+          <th class="cart-type">Product name</th>
           <th class="cart-type">Subtotal</th>
+          <th class="cart-type">Remove</th>
+
         </tr>
       </thead>
       <?php
-          $stmt = $db->prepare('SELECT * FROM carts');
-          $stmt->execute();
-          $result = $stmt->get_result();
-          while ($row = $result->fetch_assoc()) :
-          ?>
+      $id = $_SESSION['id'];
+      $stmt = $db->prepare("SELECT * FROM carts c, products p WHERE user_id = '$id' AND c.product_id = p.product_id");
+      $stmt->execute();
+      $result = $stmt->get_result();
+      while ($row = $result->fetch_assoc()) :
+      ?>
         <tr>
-        <td>
-            <div class="cart-info">
-            <img src="<?= $row['image_link'] ?>" class="card-img-top">
-              <div>
-                <?= $row['NAME'] ?>
-                <small> €<?= number_format($row['price'], 2) ?></small>
-                <br>
-                <a href="" class="cart-remove">Remove</a>
-              </div>
-            </div>
+          <td>
+            <img src="<?= $row['image_link'] ?>" , class="prodImage">
+          <td>
+            <input type="number" name="quantity" id="quantity" min="1" step="1" value="<?= $row['quantity'] ?>">
+
+          </td>
+          <td>
+            <p><?= $row['NAME'] ?></p>
+          </td>
+          <td>
+            <small> €<?= number_format($row['price'], 2) ?></small>
+          </td>
+          <td><a href="" class="cart-remove">Remove</a></td>
           </td>
         </tr>
+        <br>
+      <?php endwhile; ?>
     </table>
-    <?php endwhile; ?>
+  
     <div class="total-price">
       <table>
-      <script>
-        let preDiscountPrice = 0;
-        let Discount = 0;
-        let totalPrice = 0;
-        <?php
-            $stmt = $db->prepare('SELECT * FROM carts');
-            $stmt->execute();
-            $result = $stmt->get_result();
-            while ($row = $result->fetch_assoc()) :
-            ?>
-            preDiscountPrice += number_format($row['price'], 2)
-            Discount += number_format($row['price'], 2)*(number_format($_row['quantity'], 2)/100)
-            totalPrice += preDiscountPrice - Discount
-        <?php endwhile; ?>
-        document.getElementById("preDiscountPrice").innerHTML = preDiscountPrice;
-        document.getElementById("Discount").innerHTML = Discount;
-        document.getElementById("totalPrice").innerHTML = totalPrice;
-      </script>  
-      
         <tr>
           <td>Subtotal</td>
-          <td><p id="preDiscountPrice"></p></td>
+          <td>
+          <small><?php echo $_SESSION['discountless_total_price']; ?>€</small>                                            
+          </td>
         </tr>
         <tr>
           <td>Discount</td>
-          <td></td>
+          <td>
+            <small><?php echo $_SESSION['total_discount']; ?>€</small>
+          </td>
         </tr>
         <tr>
           <td>Total</td>
-          <td><p id="totalPrice"></p></td>
+          <td>
+          <small><?php echo $_SESSION['cart_price']; ?>€</small>
+          </td>
         </tr>
         <tr>
           <td></td>
-          <td> 
-            <button type="button">Order</button> 
+          <td>
+            <button type="button">Order</button>
           </td>
         </tr>
-      </table> 
-    </div> 
-
+      </table>
+    </div>
   </div>
-  
+
+  <script>
+    <?php
+      $stmt = $db->prepare("SELECT COUNT(*) FROM carts");
+      $stmt->execute();
+      $result = $stmt->get_result();
+    ?>
+    if (!$result) {
+      var cart_table = document.getElementById("cart_table");
+      cart_table.setAttribute('hidden');
+    }
+    else {
+      var empty_message = document.getElementById("empty_message");
+      empty_message.setAttribute('hidden');
+    }
+
+    
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 

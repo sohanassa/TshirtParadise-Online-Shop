@@ -77,7 +77,7 @@
               <img src="<?= $row['image_link'] ?>" class="card-img-top" height="250">
               <div class="card-body p-1">
                 <h4 class="card-title text-center"><?= $row['NAME'] ?></h4>
-                <h5 class="card-text text-center">€<?= number_format($row['price'], 2) ?></h5>
+                <h5 class="card-text text-center">€<?= number_format($row['product_price'], 2) ?></h5>
               </div>
               <div class="">
                 <form method="post" action="products.php" class="form-submit">
@@ -85,7 +85,7 @@
                   <h6>Quantity: </h6>
                   <input type="number" name="quantity" id="quantity" min="1" step="1" value="1">
                   <input type="hidden" name="productId" id="productId" class="pid" value="<?= $row['product_id'] ?>">
-                  <input type="hidden" name="price" id="price" class="pprice" value="<?= $row['price'] ?>">
+                  <input type="hidden" name="price" id="price" class="pprice" value="<?= $row['product_price'] ?>">
                   <button type="submit" class="btn btn-outline-success" name="add_to_cart">Add to Cart</button>
                 </form>
               </div>

@@ -6,11 +6,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Online Shop.">
-  <link rel="stylesheet" href="style.css">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-  <title>Previous Orders</title>
+  <title>Home Page</title>
 </head>
 
 <body style="background-color: #d4a5c1;">
@@ -47,48 +46,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="register.php">Register</a>
               </li>
-
             </ul>
         </div>
       </div>
     </nav>
   </section>
+  <!-- Completed -->
 
-  <div class="small-container cart-page">
-  <table>
-    <thead>
-      <tr>
-        <th class="cart-type">Order number</th>
-        <th class="cart-type">Quantity</th>
-        <th class="cart-type">Total</th>
-        <th class="cart-type">Order again</th>
-      </tr>
-    </thead>
-    <?php
-    $id = $_SESSION['id'];
-    $stmt = $db->prepare("SELECT * FROM order o, order_products p WHERE user_id = '$id' AND o.product_id = p.product_id");
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) :
-    ?>
-      <tr>
-        <td>
-          <p><?= $row['order_id'] ?></p>
-        <td>
-        <p><?= $row['quantity'] ?></p>
-        </td>
-        <td>
-          <small>€<?= $row['total_price'] ?></small>
-        </td>
-        <td>
-          <!--ADD THE BUY AGAIN BUTTON-->
-        </td>
-      </tr>
-      <br>
-    <?php endwhile; ?>
-  </table>
-
-  </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
