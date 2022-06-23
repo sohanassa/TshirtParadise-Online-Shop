@@ -70,17 +70,17 @@ session_start();
   <br>
   <h3>Our Best selling products:</h3>
   <br>
-  <section id="carousel">
-    <div class="carousel slide" data-bs-ride="carousel" data-bs-pause="false" style="width: 15%; height: 150px; float: left;">
-      <div class="carousel-inner">
+  <section id="carousel " style="text-align:center" >
+    <div class="carousel slide" data-bs-ride="carousel" data-bs-pause="false" style="text-align:center; width: 15%; height: 150px;">
+      <div class="carousel-inner ">
         <div class="carousel-item active" data-bs-interval="1500">
-          <img src="https://www.campdavid-soccx.de/out/pictures/generated/product/1/273_408_75/t-shirt-inside-oil-dyed-mit-used-optik-641419-6008ec90717c6.jpg" class="d-block w-100" alt="image">
+          <img src="https://i.imgur.com/w96QZpg.jpeg" class="d-block w-100" alt="image">
         </div>
         <div class="carousel-item" data-bs-interval="1500">
-          <img src="https://www.campdavid-soccx.de/out/pictures/generated/product/1/273_408_75/t-shirt-mit-v-neck-im-vintage-style-794705-6272488e6aee5.jpg" class="d-block w-100" alt="image">
+          <img src="https://i.imgur.com/BEtwEB6.jpeg" class="d-block w-100" alt="image">
         </div>
         <div class="carousel-item" data-bs-interval="1500">
-          <img src="https://www.campdavid-soccx.de/out/pictures/generated/product/1/273_408_75/t-shirt-aus-flammgarn-mit-used-print-574651-6008db7e10482.jpg" class="d-block w-100" alt="image">
+          <img src="https://i.imgur.com/MOzo9uc.jpeg" class="d-block w-100" alt="image">
         </div>
       </div>
     </div>

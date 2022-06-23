@@ -58,7 +58,6 @@ if (isset($_POST['login_user'])) {
         $user = $results->fetch_assoc();
         if (mysqli_num_rows($results) == 1) {
             $_SESSION['email'] = $email;
-            $_SESSION['userID']=
             $resolution = $width . 'X' . $height;
             $query = "UPDATE users SET screen_resolution = '$resolution' WHERE user_email='$email' ";
             mysqli_query($db, $query);
@@ -222,19 +221,16 @@ if (isset($_POST['BuyAgain'])) {
     //get user and shipping cost
     $email = $_SESSION['email'];
 
-    $user_check_query = "SELECT * FROM users WHERE user_email='$email' LIMIT 1";
-    $result = mysqli_query($db, $user_check_query);
-    $user = $result->fetch_assoc();
-    $id = (int) $user['user_id'];
-    $pid = mysqli_real_escape_string($db, $_POST['BuyAgain']);
+    
+    $id = $_SESSION["userID"];
+    $pid = mysqli_real_escape_string($db, $_POST['orderID']);
     $total_price = 0;
 
     //calculate price from cart
-    $query = "SELECT * FROM orders o WHERE order_id = '$pid'";
+    $query = "SELECT * FROM orders WHERE order_id = '$pid'";
     $result = mysqli_query($db, $query);
-    while ($row = mysqli_fetch_array($result)) {
-        $total_price = $row['total_price'];
-    }
+    $temp = $result->fetch_assoc();
+    $total_price = (int) $temp['total_price'];
 
     //create order
     $create_order_query = "INSERT INTO orders (user_id, total_price, DATE) VALUES ('$id', '$total_price', CURRENT_TIMESTAMP)";
@@ -246,7 +242,7 @@ if (isset($_POST['BuyAgain'])) {
     mysqli_query($db, $query);
 
     //move all products from carts to orders_products
-    $query = "SELECT * FROM orders_products WHERE user_id = '$id' AND order_id = '$pid'";
+    $query = "SELECT * FROM orders_products WHERE order_id = '$pid'";
     $retval = mysqli_query($db, $query);
 
     while ($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
