@@ -49,7 +49,7 @@ session_start();
               <a class="nav-link" href="shopping_cart.php"><i class="fas fa-cart-arrow-down"><?php 
               $db = mysqli_connect('localhost', 'root', '', 'webshopdatabase');
               $id = $_SESSION['userID'];
-              $query = "SELECT COUNT(*) FROM carts WHERE user_id= '$id' AS total'";
+              $query = "SELECT COUNT(*) AS total FROM carts WHERE user_id= '$id'";
               $results = mysqli_query($db, $query);
               $user = $results->fetch_assoc();
               echo $user["total"] ?></i></a>
