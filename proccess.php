@@ -211,10 +211,8 @@ if (isset($_POST['shopping_order'])) {
 
 if (isset($_POST['remove'])) {
     $pid = mysqli_real_escape_string($db, $_POST['prodID']);
-    $user_check_query = "SELECT * FROM users WHERE user_email='$email' LIMIT 1";
-    $result = mysqli_query($db, $user_check_query);
-    $user = $result->fetch_assoc();
-    $id = (int) $user['user_id'];
+    $id = $_SESSION["userID"];
     $query = "DELETE FROM carts WHERE user_id = '$id' AND product_id = '$pid'";
+    $result = mysqli_query($db, $query);
     header('location: shopping_cart.php');
 }

@@ -76,7 +76,7 @@
             <div class="">
               <img src="<?= $row['image_link'] ?>" class="card-img-top" height="250">
               <div class="card-body p-1">
-                <h4 class="card-title text-center"><?= $row['NAME'] ?></h4>
+                <h4 class="card-title text-center"><?= $row['name'] ?></h4>
                 <h5 class="card-text text-center">€<?= number_format($row['product_price'], 2) ?></h5>
               </div>
               <div class="">

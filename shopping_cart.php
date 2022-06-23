@@ -72,7 +72,7 @@
         </tr>
       </thead>
       <?php
-      $id = $_SESSION['id'];
+      $id = $_SESSION['userID'];
       $stmt = $db->prepare("SELECT * FROM carts c, products p WHERE user_id = '$id' AND c.product_id = p.product_id");
       $stmt->execute();
       $result = $stmt->get_result();
@@ -86,7 +86,7 @@
 
           </td>
           <td>
-            <p><?= $row['NAME'] ?></p>
+            <p><?= $row['name'] ?></p>
           </td>
           <td>
             <small> €<?= number_format($row['price'], 2) ?></small>
