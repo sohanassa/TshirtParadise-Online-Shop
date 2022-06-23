@@ -130,7 +130,7 @@ $prodCount = $result->num_rows;
           <td></td>
           <td>
             <form method="post" action="shopping_cart.php">
-              <button type="submit" class="btn btn-outline-success" name="shopping_order">Order</button>
+              <button type="submit" class="btn btn-outline-success" name="shopping_order">Checkout</button>
             </form>
           </td>
         </tr>
