@@ -96,7 +96,7 @@ $prodCount = $result->num_rows;
           </td>
           <td>
             <form method="post" action="shopping_cart.php">
-              <input type="hidden" name="prodID" value="<?= $row['product_id']?>">
+              <input type="hidden" name="prodID" value="<?= $row['product_id'] ?>">
               <button type="submit" class="btn btn-outline-success" name="remove">Remove</button>
             </form>
           </td>
@@ -105,13 +105,13 @@ $prodCount = $result->num_rows;
         <br>
       <?php endwhile; ?>
     </table>
-  
+
     <div class="total-price">
       <table>
         <tr>
           <td>Subtotal</td>
           <td>
-          <small><?php echo $_SESSION['discountless_total_price']; ?>€</small>                                            
+            <small><?php echo $_SESSION['discountless_total_price']; ?>€</small>
           </td>
         </tr>
         <tr>
@@ -123,15 +123,14 @@ $prodCount = $result->num_rows;
         <tr>
           <td>Total</td>
           <td>
-          <small><?php echo $_SESSION['cart_price']; ?>€</small>
+            <small><?php echo $_SESSION['cart_price']; ?>€</small>
           </td>
         </tr>
         <tr>
           <td></td>
           <td>
             <form method="post" action="shopping_cart.php">
-              <input type="hidden" name="prodID" value="<?= $row['product_id']?>">
-              <button type="submit" class="btn btn-outline-success" name="remove">Remove</button>
+              <button type="submit" class="btn btn-outline-success" name="shopping_order">Order</button>
             </form>
           </td>
         </tr>
