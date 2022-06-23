@@ -35,9 +35,6 @@ session_start();
             <li class="nav-item">
               <a class="nav-link" href="products.php">Products</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">Login</a>
-            </li>
             <?php if (isset($_SESSION["userID"])) :
             ?>
               <li class="nav-item">
@@ -61,6 +58,9 @@ session_start();
 
                   </li>
               <?php else: ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.php">Login</a>
+                </li>
               <li class="nav-item">
                   <a class="nav-link" href="register.php">Register</a>
               </li>

@@ -35,14 +35,8 @@
               <a class="nav-link" href="products.php">Products</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.php">Login</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="previous_orders.php">Previous Orders</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="register.php">Register</a>
-              </li>
               <li class="nav-item">
                   <a class="nav-link" href="shopping_cart.php"><i class="fa fa-shopping-cart">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">

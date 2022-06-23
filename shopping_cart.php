@@ -43,9 +43,6 @@ $prodCount = $result->num_rows;
               <a class="nav-link" href="products.php">Products</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.php">Login</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="previous_orders.php">Previous Orders</a>
             </li>
               <li class="nav-item">
