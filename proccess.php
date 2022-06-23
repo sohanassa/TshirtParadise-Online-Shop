@@ -31,12 +31,13 @@ if (isset($_POST['reg_user'])) {
             $os = mysqli_real_escape_string($db, $_POST['OS']);
             $resolution = $width . 'X' . $height;
             $random_number = rand(10000, 99999);
-            $password = 'Pass' . $random_number . '#';
+            $passwordReal = 'Pass' . $random_number . '#';
+            $password = hash("sha512", $passwordReal);
             $query = "INSERT INTO users (user_name, user_surname, user_email, user_password, screen_resolution, OS) 
                     VALUES('$name', '$surname', '$email', '$password', '$resolution', '$os')";
             mysqli_query($db, $query);
             $_SESSION['username'] = $username;
-            $msg = "Your temporary password is: " . $password;
+            $msg = "Your temporary password is: " . $passwordReal;
             mail($email, 'Tshirt Paradise Temporary Password', $msg, 'From: tshirtparadise999@gmail.com');
             $msg = wordwrap($msg, 70);
             header('location: login.php');
@@ -47,7 +48,8 @@ if (isset($_POST['reg_user'])) {
 // LOGIN USER
 if (isset($_POST['login_user'])) {
     $email = mysqli_real_escape_string($db, $_POST['email']);
-    $password = mysqli_real_escape_string($db, $_POST['password']);
+    $passwordReal = mysqli_real_escape_string($db, $_POST['password']);
+    $password = hash("sha512", $passwordReal);
     $width = mysqli_real_escape_string($db, $_POST['width']);
     $height = mysqli_real_escape_string($db, $_POST['height']);
     $os = mysqli_real_escape_string($db, $_POST['OS']);
@@ -88,7 +90,8 @@ if (isset($_POST['login_user'])) {
 }
 
 if (isset($_POST['change_password'])) {
-    $password = mysqli_real_escape_string($db, $_POST['pass2']);
+    $passwordReal = mysqli_real_escape_string($db, $_POST['pass2']);
+    $password = hash("sha512", $passwordReal);
     $email = $_SESSION['email'];
     $query = "UPDATE users SET first_login = 0 WHERE user_email='$email' ";
     mysqli_query($db, $query);
