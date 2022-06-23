@@ -38,12 +38,17 @@ session_start();
             <li class="nav-item">
               <a class="nav-link" href="login.php">Login</a>
             </li>
-              <?php if (isset($_SESSION["userID"])):?>
-            <li class="nav-item">
-              <a class="nav-link" href="shopping_cart.php">Shopping Cart</a>
-            </li>
+              <?php if (isset($_SESSION["userID"])):
+              $id = $_SESSION['userID'];
+                $query = "SELECT COUNT(*) FROM carts WHERE user_id= '$id' AS total'";
+                $results = mysqli_query($db, $query);
+                $user = $results->fetch_assoc();
+              ?>
             <li class="nav-item">
               <a class="nav-link" href="previous_orders.php">Previous Orders</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="shopping_cart.php"><i class="fas fa-cart-arrow-down"><?php echo $user["total"] ?></i></a>
             </li>
               <?php endif; ?>
           </ul>
