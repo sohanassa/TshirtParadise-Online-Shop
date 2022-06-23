@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+<?php include('proccess.php') ?>
 <!doctype html>
 <html lang="en">
 
@@ -43,8 +41,9 @@ session_start();
               <li class="nav-item">
                 <a class="nav-link" href="previous_orders.php">Previous Orders</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="logout.php">Logout</a>
+              <form action="index.php" method="post" id="logout">
+                <button type="submit" class="btn btn-outline-success" name="logout">Logout</button>
+              </form>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="shopping_cart.php"><i class="fa fa-shopping-cart">
@@ -52,7 +51,7 @@ session_start();
                       <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
                     </svg>
                     <?php
-                    $db = mysqli_connect('localhost', 'root', 'plsgetit', 'webshopdatabase');
+                    $db = mysqli_connect('localhost', 'root', '', 'webshopdatabase');
                     $id = $_SESSION['userID'];
                     $query = "SELECT COUNT(*) AS total FROM carts WHERE user_id= '$id'";
                     $results = mysqli_query($db, $query);
@@ -67,21 +66,6 @@ session_start();
       </div>
     </nav>
   </section>
-
-
-  <script>
-    var loggedin = "<?php echo "$loggedin" ?>";
-    var ref = document.getElementById('log');
-    var htmlCode = '<li class="nav-item">';
-    htmlCode += '<a class="nav-link" href="shopping_cart.php">Shopping Cart</a>';
-    htmlCode += '</li>';
-    htmlCode += '<li class="nav-item">';
-    htmlCode += '<a class="nav-link" href="previous_orders.php">Previous Orders</a>';
-    htmlCode += '</li>';
-    htmlCode += '';
-    ref.insertAdjacentHTML('afterend', htmlCode);
-  </script>
-
 
   <br>
   <h3>Our Best selling products:</h3>

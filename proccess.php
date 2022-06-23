@@ -183,19 +183,19 @@ if (isset($_POST['add_to_cart'])) {
         $result = mysqli_query($db, $user_check_query);
         $user = $result->fetch_assoc();
         $id = (int) $user['user_id'];
-        $total_price = 0;
-        $total_item_count = 0;
-        $total_discount = 0;
-        $discountless_total_price = 0;
+        $total_price = 0.0;
+        $total_item_count = 0.0;
+        $total_discount = 0.0;
+        $discountless_total_price = 0.0;
         //calculate price from cart
         $query = "SELECT * FROM carts c, products p WHERE user_id = '$id' and c.product_id = p.product_id";
         $result = mysqli_query($db, $query);
 
         while ($row = mysqli_fetch_array($result)) {
-            $total_price += $row['price'];
+            $total_price += (float)$row['price'];
             $total_item_count += $row['quantity'];
-            $discountless_total_price += $row['product_price'] * $row['quantity'];
-            $total_discount += (float)((float) $row['product_price'] * $row['quantity'] * ((float)$row['quantity'] / 100));
+            $discountless_total_price += (float)$row['product_price'] * $row['quantity'];
+            $total_discount += (float)((float) $row['product_price'] * $row['quantity'] * ((float)$row['quantity'] / 100.0));
         }
         $_SESSION['cart_price'] = $total_price;
         $_SESSION['cart_items'] = $total_item_count;
@@ -256,4 +256,9 @@ if (isset($_POST['BuyAgain'])) {
     $msg = "Thank you for buying from us. Your Order nuber is: 435" . $order_id;
     mail($email, 'Order Confirmation', $msg, 'From: tshirtparadise999@gmail.com');
     header('location: thankyou.php');
+}
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('location: index.php');
 }
