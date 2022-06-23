@@ -76,13 +76,10 @@
       ?>
         <tr>
           <td>
-            <img src="<?= $row['image_link'] ?>", class="prodImage">
+            <img src="<?= $row['image_link'] ?>" , class="prodImage">
           <td>
-            <script>
-              var qty = <?= $row['quantity'] ?>;
-              document.getElementById("quantity").value = qty;
-            </script>
-            <input type="number" name="quantity" id="quantity" min="1" step="1">
+            <input type="number" name="quantity" id="quantity" min="1" step="1" value="<?= $row['quantity'] ?>">
+
           </td>
           <td>
             <p><?= $row['NAME'] ?></p>
@@ -96,35 +93,37 @@
         <br>
       <?php endwhile; ?>
     </table>
-  
-  <div class="total-price">
-    <table>
-      <tr>
-        <td>Subtotal</td>
-        <td>
-        <small><?php echo $_SESSION['discountless_total_price']; ?>€</small>                                            
-        </td>
-      </tr>
-      <tr>
-        <td>Discount</td>
-        <td>
-          <small><?php echo $_SESSION['total_discount']; ?>€</small>
-        </td>
-      </tr>
-      <tr>
-        <td>Total</td>
-        <td>
-        <small><?php echo $_SESSION['cart_price']; ?>€</small>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <button type="button">Order</button>
-        </td>
-      </tr>
-    </table>
-  </div>
+
+    <div class="total-price">
+      <table>
+        <tr>
+          <td>Subtotal</td>
+          <td>
+            <small><?php echo $_SESSION['discountless_total_price']; ?>€</small>
+          </td>
+        </tr>
+        <tr>
+          <td>Discount</td>
+          <td>
+            <small><?php echo $_SESSION['total_discount']; ?>€</small>
+          </td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td>
+            <small><?php echo $_SESSION['cart_price']; ?>€</small>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <form method="post" action="shopping_cart.php">
+              <button type="submit" class="btn btn-outline-success" name="shopping_order">Order</button>
+            </form>
+          </td>
+        </tr>
+      </table>
+    </div>
 
   </div>
 
