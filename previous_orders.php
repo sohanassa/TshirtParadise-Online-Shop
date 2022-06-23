@@ -83,7 +83,7 @@
         <td>
           <form method="post" action="shopping_cart.php">
             <input type="hidden" name="orderID" value="<?= $row['order_id']?>">
-            <button type="submit" class="btn btn-outline-success" name="BuyAgain">Buy again</button>
+            <button type="submit" class="btn btn-outline-success" name="BuyAgain">same order again</button>
           </form>
         </td>
       </tr>
