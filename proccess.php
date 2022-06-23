@@ -136,7 +136,8 @@ if (isset($_POST['order'])) {
 
     while ($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
         $prodID = $row['product_id'];
-        $query = "INSERT INTO orders_products (order_id, product_id) VALUES ('$order_id', '$prodID')";
+        $quan = $row['quantity'];
+        $query = "INSERT INTO orders_products (order_id, product_id, quantity) VALUES ('$order_id', '$prodID', '$quan')";
         mysqli_query($db, $query);
     }
 
@@ -191,7 +192,7 @@ if (isset($_POST['add_to_cart'])) {
             $total_price += $row['price'];
             $total_item_count += $row['quantity'];
             $discountless_total_price += $row['product_price'] * $row['quantity'];
-            $total_discount += (float)((float) $row['product_price']* $row['quantity'] * ((float)$row['quantity'] / 100));
+            $total_discount += (float)((float) $row['product_price'] * $row['quantity'] * ((float)$row['quantity'] / 100));
         }
         $_SESSION['cart_price'] = $total_price;
         $_SESSION['cart_items'] = $total_item_count;
@@ -204,4 +205,12 @@ if (isset($_POST['shopping_order'])) {
     header('location: order_checkout.php');
 }
 
-
+if (isset($_POST['remove'])) {
+    $pid = mysqli_real_escape_string($db, $_POST['prodID']);
+    $user_check_query = "SELECT * FROM users WHERE user_email='$email' LIMIT 1";
+    $result = mysqli_query($db, $user_check_query);
+    $user = $result->fetch_assoc();
+    $id = (int) $user['user_id'];
+    $query = "DELETE FROM carts WHERE user_id = '$id' AND product_id = '$pid'";
+    header('location: shopping_cart.php');
+}

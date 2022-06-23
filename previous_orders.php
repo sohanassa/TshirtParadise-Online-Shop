@@ -66,7 +66,7 @@
     </thead>
     <?php
     $id = $_SESSION['id'];
-    $stmt = $db->prepare("SELECT * FROM order o, order_products p WHERE user_id = '$id' AND o.product_id = p.product_id");
+    $stmt = $db->prepare("SELECT * FROM orders o, orders_products p WHERE user_id = '$id' AND o.order_id = p.order_id GROUP BY o.order_id");
     $stmt->execute();
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) :

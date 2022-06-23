@@ -87,7 +87,12 @@
           <td>
             <small> €<?= number_format($row['price'], 2) ?></small>
           </td>
-          <td><a href="" class="cart-remove">Remove</a></td>
+          <td>
+            <form method="post" action="shopping_cart.php">
+              <input type="hidden" name="prodID" value="<?= $row['product_id']?>">
+              <button type="submit" class="btn btn-outline-success" name="remove">Remove</button>
+            </form>
+          </td>
           </td>
         </tr>
         <br>
