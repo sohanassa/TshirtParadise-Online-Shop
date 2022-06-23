@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Online Shop.">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="CartTheme.css">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -57,81 +57,34 @@
 
   <div class="small-container cart-page">
     <table>
-      <tr>
-        <th class="cart-type">Product</th>
-        <th class="cart-type">Quantity</th>
-        <th class="cart-type">Subtotal</th>
-      </tr>
-      <tr>
-        <td>
-          <div class="cart-info">
-            <img src="images/notRedTshirt.jpg" alt="">
-            <div>
-              <p>White Tshirt</p>
-              <small>Price: $50.00</small>
-              <br>
-              <a href="" class="cart-remove">Remove</a>
-            </div>
-          </div>
-        </td>
-        <td><input type="number" value="1"></td>
-        <td>$50.99</td>
-      </tr>
-      <tr>
-        <td>
-          <div class="cart-info">
-            <img src="images/notRedTshirt.jpg" alt="">
-            <div>
-              <p>White Tshirt</p>
-              <small>Price: $50.00</small>
-              <br>
-              <a href="" class="cart-remove">Remove</a>
-            </div>
-          </div>
-        </td>
-        <td><input type="number" value="1"></td>
-        <td>$50.99</td>
-      </tr>
-      <tr>
-        <td>
-          <div class="cart-info">
-            <img src="images/notRedTshirt.jpg" alt="">
-            <div>
-              <p>White Tshirt</p>
-              <small>Price: $50.00</small>
-              <br>
-              <a href="" class="cart-remove">Remove</a>
-            </div>
-          </div>
-        </td>
-        <td><input type="number" value="1"></td>
-        <td>$50.99</td>
-      </tr>
-    </table>
-
-    <div class="total-price">
-      <table>
+    <thead>
         <tr>
-          <td>Subtotal</td>
-          <td>$150.00</td>
+          <th class="cart-type">Product</th>
+          <th class="cart-type">Quantity</th>
+          <th class="cart-type">Subtotal</th>
         </tr>
+      </thead>
+      <?php
+          $stmt = $db->prepare('SELECT * FROM carts');
+          $stmt->execute();
+          $result = $stmt->get_result();
+          while ($row = $result->fetch_assoc()) :
+      ?>
         <tr>
-          <td>Tax</td>
-          <td>$35.00</td>
-        </tr>
-        <tr>
-          <td>Total</td>
-          <td>$185.00</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td> 
-            <button type="button">Order</button> 
+        <td>
+            <div class="cart-info">
+            <img src="<?= $row['image_link'] ?>" class="card-img-top">
+              <div>
+                <?= $row['NAME'] ?>
+                <small> €<?= number_format($row['price'], 2) ?></small>
+                <br>
+                <a href="" class="cart-remove">Remove</a>
+              </div>
+            </div>
           </td>
         </tr>
-      </table>
-    </div>
-
+      <?php endwhile; ?>
+    </table>
   </div>
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
