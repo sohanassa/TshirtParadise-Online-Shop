@@ -39,8 +39,6 @@ if (isset($_POST['reg_user'])) {
             $msg = "Your temporary password is: " . $password;
             mail($email, 'Tshirt Paradise Temporary Password', $msg, 'From: tshirtparadise999@gmail.com');
             $msg = wordwrap($msg, 70);
-
-            mail("sohaebameen1@gmail.com", "Tshirt Paradice Temporary Password", $msg);
             header('location: login.php');
         }
     }
@@ -96,4 +94,98 @@ if (isset($_POST['change_password'])) {
 function function_alert($msg)
 {
     echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+
+if (isset($_POST['order'])) {
+
+    //get user and shipping cost
+    $email = $_SESSION['email'];
+    $shipping_cost_temp = mysqli_real_escape_string($db, $_POST['pmode']);
+    $shipping_cost = intval($shipping_cost_temp);
+
+    $user_check_query = "SELECT * FROM users WHERE user_email='$email' LIMIT 1";
+    $result = mysqli_query($db, $user_check_query);
+    $user = $result->fetch_assoc();
+    $id = (int) $user['user_id'];
+    $total_price = 0;
+
+    //calculate price from cart
+    $query = "SELECT * FROM carts WHERE user_id = '$id'";
+    $result = mysqli_query($db, $query);
+    while ($row = mysqli_fetch_array($result)) {
+        $total_price += $row['price'];
+    }
+
+    //create order
+    $total_price += $shipping_cost;
+    $create_order_query = "INSERT INTO orders (user_id, total_price, DATE) VALUES ('$id', '$total_price', CURRENT_TIMESTAMP)";
+    $result = mysqli_query($db, $create_order_query);
+    $order_id = mysqli_insert_id($db);
+
+    //add order to users orders
+    $query = "INSERT INTO users_orders (user_id, order_id) VALUES ('$id', '$order_id')";
+    mysqli_query($db, $query);
+
+    //move all products from carts to orders_products
+    $query = "SELECT * FROM carts WHERE user_id = '$id'";
+    $retval = mysqli_query($db, $query);
+
+    while ($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
+        $prodID = $row['product_id'];
+        $query = "INSERT INTO orders_products (order_id, product_id) VALUES ('$order_id', '$prodID')";
+        mysqli_query($db, $query);
+    }
+
+
+    //delete products from cart and clear cart
+    $query = "DELETE FROM carts WHERE user_id = '$id'";
+    $result = mysqli_query($db, $query);
+    $msg = "Thank you for buying from us. Your Order nuber is: 435" . $order_id;
+    mail($email, 'Order Confirmation', $msg, 'From: tshirtparadise999@gmail.com');
+    header('location: thankyou.php');
+}
+
+if (isset($_POST['add_to_cart'])) {
+    $email = $_SESSION['email'];
+    $pid = mysqli_real_escape_string($db, $_POST['productId']);
+    $price = mysqli_real_escape_string($db, $_POST['price']);
+    $quantity = mysqli_real_escape_string($db, $_POST['quantity']);
+
+    $user_check_query = "SELECT * FROM users WHERE user_email='$email' LIMIT 1";
+    $result = mysqli_query($db, $user_check_query);
+    $user = $result->fetch_assoc();
+    $id = (int) $user['user_id'];
+
+    //check if user has already added this product before
+    $query = "SELECT * FROM carts WHERE user_id = '$id' AND product_id = '$pid' LIMIT 1";
+    $result = mysqli_query($db, $query);
+    $userproduct = mysqli_fetch_assoc($result);
+    if (!$userproduct) {
+        $finalPrice = (int) $price * $quantity;
+        if ($quantity <= 50) {
+            $intPrice = (float) $price * $quantity;
+            $discount = (float) $quantity / 100;
+            $finalPrice = (int) ($intPrice - ($discount * $intPrice));
+        }
+
+        $query = "INSERT INTO carts (user_id, product_id, price, quantity) VALUES ('$id', '$pid', '$finalPrice', '$quantity')";
+        mysqli_query($db, $query);
+
+        $user_check_query = "SELECT * FROM users WHERE user_email='$email' LIMIT 1";
+        $result = mysqli_query($db, $user_check_query);
+        $user = $result->fetch_assoc();
+        $id = (int) $user['user_id'];
+        $total_price = 0;
+        $total_item_count = 0;
+
+        //calculate price from cart
+        $query = "SELECT * FROM carts WHERE user_id = '$id'";
+        $result = mysqli_query($db, $query);
+        while ($row = mysqli_fetch_array($result)) {
+            $total_price += $row['price'];
+            $total_item_count += $row['quantity'];
+        }
+        $_SESSION['cart_price'] = $total_price;
+        $_SESSION['cart_items'] = $total_item_count;
+    }
 }

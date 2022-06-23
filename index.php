@@ -44,9 +44,6 @@ session_start();
             <li class="nav-item">
               <a class="nav-link" href="previous_orders.php">Previous Orders</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="register.php">Register</a>
-            </li>
           </ul>
         </div>
       </div>
@@ -74,13 +71,13 @@ session_start();
   <section id="carousel">
     <div class="carousel slide" data-bs-ride="carousel" data-bs-pause="false" style="width: 15%; height: 150px; float: left;">
       <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="3000">
+        <div class="carousel-item active" data-bs-interval="1500">
           <img src="https://www.campdavid-soccx.de/out/pictures/generated/product/1/273_408_75/t-shirt-inside-oil-dyed-mit-used-optik-641419-6008ec90717c6.jpg" class="d-block w-100" alt="image">
         </div>
-        <div class="carousel-item" data-bs-interval="3000">
+        <div class="carousel-item" data-bs-interval="1500">
           <img src="https://www.campdavid-soccx.de/out/pictures/generated/product/1/273_408_75/t-shirt-mit-v-neck-im-vintage-style-794705-6272488e6aee5.jpg" class="d-block w-100" alt="image">
         </div>
-        <div class="carousel-item" data-bs-interval="3000">
+        <div class="carousel-item" data-bs-interval="1500">
           <img src="https://www.campdavid-soccx.de/out/pictures/generated/product/1/273_408_75/t-shirt-aus-flammgarn-mit-used-print-574651-6008db7e10482.jpg" class="d-block w-100" alt="image">
         </div>
       </div>

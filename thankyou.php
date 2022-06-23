@@ -43,14 +43,29 @@
               <a class="nav-link" href="previous_orders.php">Previous Orders</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="register.php">Register</a>
-              </li>
+              <a class="nav-link" href="register.php">Register</a>
+            </li>
 
-            </ul>
+          </ul>
         </div>
       </div>
     </nav>
   </section>
+
+  <br>
+  <br>
+  <br>
+
+  <h1 style="text-align:center">Thank You for buying from us!</h1>
+  <br><br>
+  <img style="text-align:center" ; src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFsV_MKf0eknumX08Kq61VV2f1Hjdd5VMF1g&usqp=CAU" alt="cute face">
+  <style>
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
   <!-- Completed -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

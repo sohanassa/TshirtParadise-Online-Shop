@@ -44,15 +44,83 @@
               <a class="nav-link" href="previous_orders.php">Previous Orders</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="register.php">Register</a>
-              </li>
+              <a class="nav-link" href="register.php">Register</a>
+            </li>
 
-            </ul>
+          </ul>
         </div>
       </div>
     </nav>
   </section>
   <!-- Completed -->
+
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 px-4 pb-4" id="order">
+          <h4 class="text-center">Complete your order!</h4>
+          <div class="jumbotron p-3 mb-2 text-center">
+            <h6 class="lead"><b><?php
+                                echo $_SESSION['cart_items'];
+                                ?> products included in your order! </b></h6>
+            <h6 class="lead"><b>Total price for the products is €<?php
+                                                                  echo $_SESSION['cart_price'];
+                                                                  ?>
+              </b></h6>
+          </div>
+          <form action="order_checkout.php" method="post" id="placeOrder">
+            <?php include('errors.php'); ?>
+            <h6 class="text-center lead">Select Delivery Method</h6>
+            <div class="form-group">
+              <select name="pmode" class="form-control">
+                <option value="" selected disabled></option>
+                <option value="22">Deliver by DPD +€22</option>
+                <option value="0">Deliver by DHL (Free)</option>
+                <option value="33">Deliver by DHL Express +€33</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-outline-success" name="order">Order</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+        // Sending Form data to the server
+        $("#placeOrder").submit(function(e) {
+          e.preventDefault();
+          $.ajax({
+            url: 'action.php',
+            method: 'post',
+            data: $('form').serialize() + "&action=order",
+            success: function(response) {
+              $("#order").html(response);
+            }
+          });
+        });
+
+        // Load total no.of items added in the cart and display in the navbar
+        load_cart_item_number();
+
+        function load_cart_item_number() {
+          $.ajax({
+            url: 'action.php',
+            method: 'get',
+            data: {
+              cartItem: "cart_item"
+            },
+            success: function(response) {
+              $("#cart-item").html(response);
+            }
+          });
+        }
+      });
+    </script>
+  </body>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
