@@ -81,7 +81,10 @@
           <small>€<?= $row['total_price'] ?></small>
         </td>
         <td>
-          <!--ADD THE BUY AGAIN BUTTON-->
+          <form method="post" action="shopping_cart.php">
+            <input type="hidden" name="orderID" value="<?= $row['order_id']?>">
+            <button type="submit" class="btn btn-outline-success" name="BuyAgain">Buy again</button>
+          </form>
         </td>
       </tr>
       <br>

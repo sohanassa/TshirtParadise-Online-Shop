@@ -135,21 +135,6 @@
     </div>
   </div>
 
-  <script>
-    <?php
-    $stmt = $db->prepare("SELECT COUNT(*) FROM carts");
-    $stmt->execute();
-    $result = $stmt->get_result();
-    ?>
-    if (!$result) {
-      var cart_table = document.getElementById("cart_table");
-      cart_table.setAttribute('hidden');
-    } else {
-      var empty_message = document.getElementById("empty_message");
-      empty_message.setAttribute('hidden');
-    }
-  </script>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
