@@ -59,8 +59,10 @@
     <thead>
       <tr>
         <th class="cart-type">Order number</th>
-        <th class="cart-type">Quantity</th>
-        <th class="cart-type">Total</th>
+        <th class="cart-type">Total quantity</th>
+        <th class="cart-type">Product name</th>
+        <th class="cart-type">product quantity</th>
+        <th class="cart-type">Total value</th>
         <th class="cart-type">Order again</th>
       </tr>
     </thead>
@@ -77,6 +79,20 @@
         <td>
         <p><?= $row['quantity'] ?></p>
         </td>
+        <?php
+          $id = $_SESSION['id'];
+          $stmt = $db->prepare("SELECT * FROM orders_products o, products p WHERE user_id = '$id' AND o.product_id = p.product_id GROUP BY o.product_id");
+          $stmt->execute();
+          $result = $stmt->get_result();
+          while ($row = $result->fetch_assoc()) :
+        ?>
+          <td>
+          <p><?= $row['name'] ?></p>
+          </td>
+          <td>
+          <p><?= $row['quantity'] ?></p>
+          </td>
+        <?php endwhile; ?>
         <td>
           <small>€<?= $row['total_price'] ?></small>
         </td>
